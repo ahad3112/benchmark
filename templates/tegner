@@ -1,0 +1,39 @@
+#!/bin/bash -l
+# The -l above is required to get the full environment with modules
+
+# Set the allocation to be charged for this job
+# not required if you have set a default allocation
+#SBATCH -A $project$
+
+# The name of the script is $name$
+#SBATCH -J $name$
+
+# Only $wall-time$ wall-clock time will be given to this job
+#SBATCH -t $wall_time$
+
+# Number of nodes
+#SBATCH --nodes=$nodes$
+# Number of MPI processes per node
+#SBATCH --ntasks-per-node=$ntasks-per-node$
+
+#SBATCH -e $error_file$
+#SBATCH -o $output_file$
+
+# Generic resources
+$gres$
+
+# Memory requests
+$memories$
+
+# Setting environment variables
+$envs$
+
+# loading modules
+$modules$
+
+# MPIRUN_OPTIONS
+MPIRUN_OPTIONS="-np $MPI_NP$"
+
+# Run the executable named $exe$ with MPI-rank of $MPI_NP$
+# and write the output into $output_file$
+mpirun $MPIRUN_OPTIONS $simg$ $exe$ > $output_file$ 2>&1
