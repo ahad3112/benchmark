@@ -35,7 +35,7 @@ class ScriptTemplateCLI:
             required=True
         ),
         Argument(
-            name=('-w', '--wall-time'),
+            name=('-wt', '--wall-time'),
             help='Approximate time <hh:mm:ss> required for the job. Default is "{0}"'.format(settings.DEFAULT_WALL_TIME),
             default=settings.DEFAULT_WALL_TIME
         ),

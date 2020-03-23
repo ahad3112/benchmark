@@ -45,7 +45,7 @@ if __name__ != '__main__':
             try:
                 workdir = os.path.abspath(self.args.workdir)
             except Exception:
-                raise Exception('No default of user provided Working directory was provided...')
+                raise Exception('No default or user provided Working directory was provided...')
             else:
                 if workdir == settings.HOME_DIRECTORY:
                     print('Warning: Using program directory as working directory.')
@@ -78,24 +78,32 @@ if __name__ != '__main__':
             )
 
             if os.path.exists(self.benchmark_directory):
-                confirmation = input("Warning : {0} Already exists. \
-                    \nType 'r/R' to rename, o/O' to override, 'a/A' to append, 'b/b' for backup old result and any other key to quit.\n".format(
-                    self.benchmark_directory)
-                )
-                if confirmation in ['r', 'R']:
-                    print('Renaming {0}'.format(self.benchmark_directory))
-                elif confirmation in ['o', 'O']:
-                    if len(os.listdir(self.benchmark_directory)):
+                contents_here = os.listdir(self.benchmark_directory)
+                if contents_here:
+                    confirmation = input("Warning : {0} Already exists. \
+                        \n Type o/O' to override, 'b/b' for backup old result and any other key to quit.\n".format(
+                        self.benchmark_directory)
+                    )
+                    if confirmation in ['o', 'O']:
                         # Remove every thing from the directory
                         print('Warning : Overriding {0}'.format(self.benchmark_directory))
                         os.system('rm -rf {0}'.format(
                             os.path.join(self.benchmark_directory, '*'))
                         )
-                elif confirmation in ['a', 'A']:
-                    print('Warning : Appending {0}'.format(self.benchmark_directory))
-                else:
-                    print('Aborting Program...')
-                    sys.exit()
+                    elif confirmation in ['b', 'B']:
+                        # ???????? backing up old files here : Not working...
+                        print('Backing up contents of : {0}'.format(self.benchmark_directory))
+                        cwd = os.getcwd()
+                        os.chdir(self.benchmark_directory)
+                        for content in sorted(contents_here):
+                            os.rename(content, content + '_backup')
+
+                        # changing directory to the working directory
+                        os.chdir(cwd)
+
+                    else:
+                        print('Aborting Program...')
+                        sys.exit()
             else:
                 os.system('mkdir -p ' + self.benchmark_directory)
                 print('Benckmark directory is set to : {0}'.format(self.benchmark_directory))
