@@ -38,3 +38,6 @@ DEFAULT_ARGS = {
     '$memories$': ['# Not Provided'],
     '$simg$': '',
 }
+
+# File backup
+DEFAULT_FILE_BACKUP_SUFFIX = '_backup'

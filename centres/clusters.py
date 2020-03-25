@@ -1,4 +1,3 @@
-
 if __name__ != '__main__':
     '''
     I don't want this script to be run as the Top level script
@@ -8,6 +7,7 @@ if __name__ != '__main__':
     import sys
     import settings
     from datetime import date
+    from utilities.display import Display
 
     class ClusterMixin:
 
@@ -91,22 +91,22 @@ if __name__ != '__main__':
                             os.path.join(self.benchmark_directory, '*'))
                         )
                     elif confirmation in ['b', 'B']:
-                        # ???????? backing up old files here : Not working...
-                        print('Backing up contents of : {0}'.format(self.benchmark_directory))
+                        Display.title(title='BACKING UP CONTENTS OF: {0}'.format(self.benchmark_directory))
+                        Display.info(what='DEFAULT BACKUP SUFFIX ', info=' [ "{0}" ]'.format(
+                            settings.DEFAULT_FILE_BACKUP_SUFFIX)
+                        )
+                        # Storing current working directory
                         cwd = os.getcwd()
                         os.chdir(self.benchmark_directory)
-                        for content in sorted(contents_here):
-                            os.rename(content, content + '_backup')
+                        for content in sorted(contents_here, reverse=True):
+                            os.rename(content, content + settings.DEFAULT_FILE_BACKUP_SUFFIX)
 
-                        # changing directory to the working directory
+                        # going back to the working directory as it was
                         os.chdir(cwd)
 
                     else:
                         print('Aborting Program...')
                         sys.exit()
-            else:
-                os.system('mkdir -p ' + self.benchmark_directory)
-                print('Benckmark directory is set to : {0}'.format(self.benchmark_directory))
 
         def __load_template(self):
             try:
