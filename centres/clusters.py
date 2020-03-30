@@ -31,6 +31,8 @@ if __name__ != '__main__':
             '$simg$': 'set_simg',
         }
 
+        working_directory_created = False
+
         def __init__(self, *, args):
             self.args = args
 
@@ -42,30 +44,36 @@ if __name__ != '__main__':
             self.__update_template()
 
         def __housekeeping(self):
+            Display.title(
+                title='Setting Up Working Directory for {0}'.format(self.__class__.__name__)
+            )
             try:
                 workdir = os.path.abspath(self.args.workdir)
             except Exception:
                 raise Exception('No default or user provided Working directory was provided...')
             else:
                 if workdir == settings.HOME_DIRECTORY:
-                    print('Warning: Using program directory as working directory.')
-                    confirmation = input("Type 'y/Y' to confirm? ")
+                    Display.warning(what='Using program directory as working directory ', info=' [ Warning ]')
+                    confirmation = input("Type 'y/Y' to proceed? ")
                     if not confirmation in ['y', 'Y']:
-                        print('Aborting Program...')
+                        Display.error(what='You chose not to proceed ', info=' [ ABORTING ]')
                         sys.exit()
+
                     if workdir != settings.DEFAULT_WORKDIR:
                         os.chdir(workdir)
-                        print('Working directory set to : {0}'.format(workdir))
-                    else:
-                        print('Using the Directory {0} as working directory'.format(settings.DEFAULT_WORKDIR))
+
                 else:
                     if workdir != settings.DEFAULT_WORKDIR:
                         os.chdir(workdir)
-                        print('Working directory set to : {0}'.format(workdir))
-                    else:
-                        print('Using the default directory {0} as working directory'.format(settings.DEFAULT_WORKDIR))
+
+            Display.info(what='{0} '.format(workdir), info=' [ Set as Working Dirrectory ]', fill='-')
 
             #  Creating Directory for the benchmark
+            print('\n')
+            Display.title(
+                title='Creating Benchmark Directory for {0}'.format(self.__class__.__name__)
+            )
+
             self.benchmark_directory = os.path.join(
                 os.getcwd(),
                 os.path.join(
@@ -80,22 +88,26 @@ if __name__ != '__main__':
             if os.path.exists(self.benchmark_directory):
                 contents_here = os.listdir(self.benchmark_directory)
                 if contents_here:
-                    confirmation = input("Warning : {0} Already exists. \
-                        \n Type o/O' to override, 'b/b' for backup old result and any other key to quit.\n".format(
+                    Display.info(what='{0} '.format(self.benchmark_directory), info=' [ Directory Not Empty ]', fill='-')
+                    confirmation = input("\nType 'o/O' to override, 'b/b' for backup contents and any other key to quit?\n".format(
                         self.benchmark_directory)
                     )
+
                     if confirmation in ['o', 'O']:
                         # Remove every thing from the directory
-                        print('Warning : Overriding {0}'.format(self.benchmark_directory))
+                        Display.warning(what='Overriding {0} '.format(self.benchmark_directory), info=' [ Warning ]', fill='-')
                         os.system('rm -rf {0}'.format(
                             os.path.join(self.benchmark_directory, '*'))
                         )
                     elif confirmation in ['b', 'B']:
-                        Display.title(title='BACKING UP CONTENTS OF: {0}'.format(self.benchmark_directory))
-                        Display.info(what='DEFAULT BACKUP SUFFIX ', info=' [ "{0}" ]'.format(
-                            settings.DEFAULT_FILE_BACKUP_SUFFIX)
+                        Display.title(title='BACKING UP CONTENTS')
+                        Display.info(
+                            what='{0} with suffix '.format(os.path.join(self.benchmark_directory, '*')),
+                            info=' [ "{0}" ]'.format(
+                                settings.DEFAULT_FILE_BACKUP_SUFFIX),
+                            fill='-'
                         )
-                        # Storing current working directory
+                        # Storing current working directory to get back
                         cwd = os.getcwd()
                         os.chdir(self.benchmark_directory)
                         for content in sorted(contents_here, reverse=True):
@@ -103,12 +115,16 @@ if __name__ != '__main__':
 
                         # going back to the working directory as it was
                         os.chdir(cwd)
-
                     else:
-                        print('Aborting Program...')
+                        Display.error(what='You chose not to proceed ', info=' [ ABORTING ]')
                         sys.exit()
+            else:
+                os.system('mkdir -p {0}'.format(self.benchmark_directory))
 
         def __load_template(self):
+            Display.title(
+                title='Loading Job Template for {0}'.format(self.__class__.__name__)
+            )
             try:
                 file = open(
                     os.path.join(
@@ -122,10 +138,11 @@ if __name__ != '__main__':
                     self.__class__.__name__
                 ))
             else:
-                print('Template found for Cluster: {0}.'.format(
-                    self.__class__.__name__
-                ))
-
+                Display.info(
+                    what='Template ',
+                    info=' [ Found ]',
+                    fill='-'
+                )
                 self.template = file.read()
 
         def replace_arg(self, target, value):
@@ -142,8 +159,10 @@ if __name__ != '__main__':
                         target, self.params[target].format(simg)
                     )
                 except KeyError:
-                    sys.stderr.write(
-                        'Cluster {0} does not support Singularity Image.\n'.format(self.__class__.__name__)
+                    Display.error(
+                        what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
+                        info=' [ Not Supported ]',
+                        fill='-'
                     )
                     self.replace_arg(target, '')
             else:
@@ -185,6 +204,7 @@ if __name__ != '__main__':
                 file.write(self.template)
 
         def __update_template(self):
+            templte_backup = self.template[:]
             for nnodes in range(self.args.min_nodes, self.args.max_nodes + 1, 1):
                 for ntasks in range(self.args.min_ntasks_per_node, self.args.max_ntasks_per_node + 1, 1):
                     self.computed_params['$nodes$'] = str(nnodes)
@@ -212,7 +232,7 @@ if __name__ != '__main__':
                         np=self.computed_params['$MPI_NP$']
                     )
                     # reload template for the next run
-                    self.__load_template()
+                    self.template = templte_backup[:]
 
     class PDC(ClusterMixin):
         params = {

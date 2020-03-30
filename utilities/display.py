@@ -1,31 +1,62 @@
+import sys
+
+
 class Display:
-    line_length = 130
+    line_length = 160
     what_length = 100
     info_length = line_length - what_length
 
     @staticmethod
     def title(*, title):
         print('{0}'.format('-' * Display.line_length))
-        print('{0!s:^{1}}'.format(title, Display.line_length))
+        print('{0!s:^{1}}'.format(' '.join(x.upper() for x in title), Display.line_length))
         print('{0}'.format('-' * Display.line_length))
 
     @staticmethod
-    def info(*, what, info):
-        print('{0:><{1}}{2:>>{3}}'.format(what, Display.what_length, info, Display.info_length))
+    def info(*, what, info, fill='>'):
+        print('{0:{1}<{2}}{3:{4}>{5}}'.format(what,
+                                              fill,
+                                              Display.what_length,
+                                              info.upper(),
+                                              fill,
+                                              Display.info_length)
+              )
+
+    @staticmethod
+    def warning(*, what, info, fill='>'):
+        print('{0:{1}<{2}}{3:{4}>{5}}'.format(what,
+                                              fill,
+                                              Display.what_length,
+                                              info.upper(),
+                                              fill,
+                                              Display.info_length)
+              )
+
+    @staticmethod
+    def error(*, what, info, fill='>'):
+        sys.stderr.write('{0:{1}<{2}}{3:{4}>{5}}'.format(what,
+                                                         fill,
+                                                         Display.what_length,
+                                                         info.upper(),
+                                                         fill,
+                                                         Display.info_length)
+                         )
+
+        sys.stderr.write('\n')
 
     @staticmethod
     def dataframe(*, headers, rows):
         try:
             # Extra one is required for row number
-            min_column_width = self.line_width // (len(headers) + 1)
+            min_column_width = Display.line_length // (len(headers) + 1)
         except Exception:
             try:
                 # Extra one is required for row number
-                min_column_width = Display.line_width // (len(rows[0]) + 1)
+                min_column_width = Display.line_length // (len(rows[0]) + 1)
             except Exception:
                 print('No Header of Data was provided for display.....')
         finally:
-            remaining_line_width = Display.line_width - min_column_width
+            remaining_line_width = Display.line_length - min_column_width
             column_format = '{0!s:{1}<{2}}'
             headers.insert(0, 'No.')
             # headers
