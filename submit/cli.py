@@ -29,7 +29,7 @@ class JobSubmitCLI:
         ),
         Argument(
             name=('-r', '--recursive'),
-            help='Submit the job recursively for the file',
+            help='Will look recursively for directories with the Cluster name and will submit all job.',
             action='store_true',
             default=False
         ),

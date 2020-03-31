@@ -166,8 +166,10 @@ if __name__ != '__main__':
                     )
                     self.replace_arg(target, '')
             else:
-                sys.stdout.write(
-                    'Cluster {0}: Singularity Image not provided.\n'.format(self.__class__.__name__)
+                Display.error(
+                    what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
+                    info=' [ not provided ]',
+                    fill='-'
                 )
                 self.replace_arg(target, '')
 
@@ -204,6 +206,9 @@ if __name__ != '__main__':
                 file.write(self.template)
 
         def __update_template(self):
+            Display.title(
+                title='Updating Template for {0}'.format(self.__class__.__name__)
+            )
             templte_backup = self.template[:]
             for nnodes in range(self.args.min_nodes, self.args.max_nodes + 1, 1):
                 for ntasks in range(self.args.min_ntasks_per_node, self.args.max_ntasks_per_node + 1, 1):
@@ -221,9 +226,19 @@ if __name__ != '__main__':
                             ))
                         else:
                             try:
+                                Display.info(
+                                    what='{0} Replaced by '.format(target),
+                                    info=' [ {0} ]'.format(getattr(self.args, target[1:-1])),
+                                    fill='-'
+                                )
                                 method(target, getattr(self.args, target[1:-1]))
                             except AttributeError:
-                                print('Target {0} will be replaced with value computed from the user input'.format(target))
+                                Display.info(
+                                    what='{0} Replaced by '.format(target),
+                                    info=' [ {0} ]'.format(self.computed_params[target]),
+                                    fill='-'
+                                )
+                                # print('Target {0} will be replaced with value computed from the user input'.format(target))
                                 method(target, self.computed_params[target])
 
                     # write the script to the external file
@@ -253,6 +268,11 @@ if __name__ != '__main__':
             os.chdir(directory)
             os.system('{0} {1}'.format(cls.sbatch, job))
             os.chdir(current_working_directory)
+            Display.info(
+                what='{0} '.format(os.path.join(directory, job)),
+                info=' [ Submitted ]',
+                fill='-'
+            )
 
     class Tegner(PDC):
         def __init__(self, *, args):
