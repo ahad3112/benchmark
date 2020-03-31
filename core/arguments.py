@@ -6,8 +6,7 @@ class Argument:
     def __init__(self, *, name, type=None, help='help',
                  action=None, choices=None, nargs=None,
                  required=False, metavar=None,
-                 default=None, group=None,
-                 ):
+                 default=None, group=None):
         self.name = name
         self.type = type
         self.help = help
