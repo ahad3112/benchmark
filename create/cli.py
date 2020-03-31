@@ -1,6 +1,6 @@
 try:
     from core.arguments import Argument
-except ModuleNotFoundError:
+except ImportError:
     import sys
     sys.path.append('..')
     from core.arguments import Argument
