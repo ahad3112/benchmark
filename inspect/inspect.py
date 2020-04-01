@@ -20,8 +20,8 @@ class Inspect:
     def __inspect(self):
         hostname = os.popen('echo $HOSTNAME').read()
 
-        # Testing
-        hostname = 'tegner'
+        # Testing ...
+        # hostname = 'tegner'
         for cluster in settings.CLUSTERS:
             if cluster.lower() in hostname:
                 Display.title(

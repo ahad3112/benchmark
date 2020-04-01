@@ -281,6 +281,10 @@ if __name__ != '__main__':
         @classmethod
         def inspect(cls):
             print('Inspecting .... on {0}'.format(cls.__name__))
+            pipe = os.popen('squeue -u {0}'.format(os.environ['USER']))
+            print(pipe)
+            for line in pipe:
+                print(line)
 
         @classmethod
         def submit(cls, *, directory, job):
