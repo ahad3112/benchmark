@@ -33,7 +33,8 @@ $modules$
 
 # MPIRUN_OPTIONS
 MPIRUN_OPTIONS="-np $MPI_NP$"
+$threads$
 
 # Run the executable named $exe$ with MPI-rank of $MPI_NP$
 # and write the output into $output_file$
-mpirun $MPIRUN_OPTIONS $simg$ $exe$ > $output_file$ 2>&1
+mpirun $MPIRUN_OPTIONS $simg$ $exe$ $enable_threads$> $output_file$ 2>&1

@@ -29,6 +29,7 @@ if __name__ != '__main__':
             '$memories$': 'replace_varargs',
             '$exe$': 'set_exe',
             '$simg$': 'set_simg',
+            '$threads$': 'set_threads'
         }
 
         working_directory_created = False
@@ -250,17 +251,32 @@ if __name__ != '__main__':
                     self.template = templte_backup[:]
 
     class PDC(ClusterMixin):
+        OMP_NUM_THREADS = 'OMP_NUM_THREADS'
+        ENABLE_THREADS = '$enable_threads$'
         params = {
             '$gres$': '#SBATCH --gres={0}',
             '$modules$': 'module load {0}',
             '$envs$': 'export {0}',
-            '$memories$': '--mem={0}'
+            '$memories$': '--mem={0}',
+            '$threads$': 'export {0}={1}',
+            '$enable_threads$': '-ntomp ${0} '
         }
 
         sbatch = 'sbatch'
 
         def __init__(self, *, args):
             ClusterMixin.__init__(self, args=args)
+
+        def set_threads(self, target, value):
+            if self.args.threads:
+                self.replace_arg(target, self.params[target].format(self.OMP_NUM_THREADS, value))
+                # settion
+                self.replace_arg(self.ENABLE_THREADS, self.params[self.ENABLE_THREADS].format(self.OMP_NUM_THREADS))
+            else:
+                self.replace_arg(target, '')
+                self.replace_arg(self.ENABLE_THREADS, '')
+
+            # update the execute line
 
         @classmethod
         def submit(cls, *, directory, job):

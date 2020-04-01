@@ -122,6 +122,11 @@ class ScriptTemplateCLI:
             default=settings.DEFAULT_ARGS['$simg$']
         ),
         Argument(
+            name=('-th', '--threads'),
+            help='No of threads per process.',
+            type=str,
+        ),
+        Argument(
             name=('-gpu', '--gpu'),
             help='Enables GPU acceleration',
             action='store_true',
