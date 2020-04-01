@@ -13,7 +13,7 @@ class Display:
     @staticmethod
     def title(*, title):
         print('{0}'.format('-' * Display.line_length))
-        print('{0!s:^{1}}'.format(' '.join(x.upper() for x in title), Display.line_length))
+        print('{0!s:<{1}}'.format(' '.join(x.upper() for x in title), Display.line_length))
         print('{0}'.format('-' * Display.line_length))
 
     @staticmethod
