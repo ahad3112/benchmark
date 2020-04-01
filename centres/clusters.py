@@ -279,6 +279,10 @@ if __name__ != '__main__':
             # update the execute line
 
         @classmethod
+        def inspect(cls):
+            print('Inspecting .... on {0}'.format(cls.__name__))
+
+        @classmethod
         def submit(cls, *, directory, job):
             current_working_directory = os.getcwd()
             os.chdir(directory)

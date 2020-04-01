@@ -8,6 +8,8 @@ from create.cli import ScriptTemplateCLI
 from submit.cli import JobSubmitCLI
 from create.create import Create
 from submit.submit import Submit
+from inspect.cli import JobInspectCLI
+from inspect.inspect import Inspect
 import centres.clusters as clusters
 
 
@@ -25,6 +27,7 @@ def cli():
     # add parser related to scripts
     ScriptTemplateCLI(subparsers=subparsers)
     JobSubmitCLI(subparsers=subparsers)
+    JobInspectCLI(subparsers=subparsers)
     # add parser related to job submition
     # add parser related to analyze the results
     # add parser related to visualize the result
@@ -40,6 +43,8 @@ def action(*, args):
             Create(args=args)
         elif sys.argv[1] == 'submit':
             Submit(args=args)
+        elif sys.argv[1] == 'inspect':
+            Inspect(args=args)
 
 
 if __name__ == '__main__':
