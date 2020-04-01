@@ -8,12 +8,12 @@ class Display:
 
     @staticmethod
     def line(*, line):
-        print('{0!s:^{1}}'.format(line, Display.line_length))
+        print('{0!s:<{1}}'.format(line, Display.line_length))
 
     @staticmethod
     def title(*, title):
         print('{0}'.format('-' * Display.line_length))
-        print('{0!s:<{1}}'.format(' '.join(x.upper() for x in title), Display.line_length))
+        print('{0!s:^{1}}'.format(' '.join(x.upper() for x in title), Display.line_length))
         print('{0}'.format('-' * Display.line_length))
 
     @staticmethod
