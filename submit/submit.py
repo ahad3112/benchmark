@@ -59,7 +59,6 @@ class Submit:
         for (dirname, dirshere, fileshere) in os.walk(directory):
             if os.path.split(dirname)[1] == self.cluster:
                 for (subdirname, subdirshere, subfileshere) in os.walk(dirname):
-                    print(subfileshere)
                     for job in subfileshere:
                         if job.endswith(self.args.suffix):
                             getattr(clusters, self.cluster).submit(directory=subdirname, job=job)

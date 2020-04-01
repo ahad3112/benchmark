@@ -283,7 +283,6 @@ if __name__ != '__main__':
             pipe = os.popen('squeue -u {0}'.format(os.environ['USER']))
             for line in pipe:
                 Display.line(line=line)
-                # print(line)
 
         @classmethod
         def submit(cls, *, directory, job):
