@@ -18,8 +18,7 @@ class ScriptTemplateCLI:
     args = [
         Argument(
             name=('-n', '--name'),
-            help='Name of the job. Given name will be suffixed with _nnode_ntask. \
-            Default is "{0}".'.format(settings.DEFAULT_JOB_NAME),
+            help='Name of the job. Default is "{0}".'.format(settings.DEFAULT_JOB_NAME),
             default=settings.DEFAULT_JOB_NAME
         ),
         Argument(
@@ -117,7 +116,7 @@ class ScriptTemplateCLI:
         ),
         Argument(
             name=('-s', '--simg'),
-            help='Absolute path of the singularity image where to run executable.',
+            help='Absolute path of the singularity image.',
             type=str,
             default=settings.DEFAULT_ARGS['$simg$']
         ),

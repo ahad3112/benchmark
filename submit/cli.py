@@ -52,7 +52,7 @@ class JobSubmitCLI:
     def __init__(self, *, subparsers):
         self.parser = subparsers.add_parser(
             'submit',
-            help='Sumit job script to the queue system'
+            help='Submit job script to the queue system'
         )
 
         self.__add_mutually_exclusive_groups()

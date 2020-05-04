@@ -15,14 +15,14 @@ if __name__ != '__main__':
         computed_params = {}
 
         targets = {
-            '$name$': 'replace_arg',
-            '$project$': 'replace_arg',
-            '$wall_time$': 'replace_arg',
-            '$error_file$': 'replace_arg',
-            '$output_file$': 'replace_arg',
-            '$nodes$': 'replace_arg',
-            '$ntasks-per-node$': 'replace_arg',
-            '$MPI_NP$': 'replace_arg',
+            '$name$': 'replace_by_arg',
+            '$project$': 'replace_by_arg',
+            '$wall_time$': 'replace_by_arg',
+            '$error_file$': 'replace_by_arg',
+            '$output_file$': 'replace_by_arg',
+            '$nodes$': 'replace_by_arg',
+            '$ntasks-per-node$': 'replace_by_arg',
+            '$MPI_NP$': 'replace_by_arg',
             '$gres$': 'replace_varargs',
             '$modules$': 'replace_varargs',
             '$envs$': 'replace_varargs',
@@ -54,11 +54,11 @@ if __name__ != '__main__':
                 raise Exception('No default or user provided Working directory was provided...')
             else:
                 if workdir == settings.HOME_DIRECTORY:
-                    Display.warning(what='Using program directory as working directory ', info=' [ Warning ]')
+                    Display.warning(what="Using tool's directory as working directory ", info=' [ Warning ]')
                     confirmation = input("Type 'y/Y' to proceed? ")
                     if not confirmation in ['y', 'Y']:
                         Display.error(what='You chose not to proceed ', info=' [ ABORTING ]')
-                        sys.exit()
+                        os._exit(-1)
 
                     if workdir != settings.DEFAULT_WORKDIR:
                         os.chdir(workdir)
@@ -146,17 +146,17 @@ if __name__ != '__main__':
                 )
                 self.template = file.read()
 
-        def replace_arg(self, target, value):
+        def replace_by_arg(self, target, value):
             self.template = self.template.replace(target, value)
 
         def set_exe(self, target, value):
-            self.replace_arg(target, ' '.join(value))
+            self.replace_by_arg(target, ' '.join(value))
 
         def set_simg(self, target, simg):
             # simg will be empty string if not provided by the user
             if simg:
                 try:
-                    self.replace_arg(
+                    self.replace_by_arg(
                         target, self.params[target].format(simg)
                     )
                 except KeyError:
@@ -165,14 +165,14 @@ if __name__ != '__main__':
                         info=' [ Not Supported ]',
                         fill='-'
                     )
-                    self.replace_arg(target, '')
+                    self.replace_by_arg(target, '')
             else:
                 Display.error(
                     what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
                     info=' [ not provided ]',
                     fill='-'
                 )
-                self.replace_arg(target, '')
+                self.replace_by_arg(target, '')
 
         def replace_varargs(self, target, items):
             values = []
@@ -269,12 +269,12 @@ if __name__ != '__main__':
 
         def set_threads(self, target, value):
             if self.args.threads:
-                self.replace_arg(target, self.params[target].format(self.OMP_NUM_THREADS, value))
+                self.replace_by_arg(target, self.params[target].format(self.OMP_NUM_THREADS, value))
                 # settion
-                self.replace_arg(self.ENABLE_THREADS, self.params[self.ENABLE_THREADS].format(self.OMP_NUM_THREADS))
+                self.replace_by_arg(self.ENABLE_THREADS, self.params[self.ENABLE_THREADS].format(self.OMP_NUM_THREADS))
             else:
-                self.replace_arg(target, '')
-                self.replace_arg(self.ENABLE_THREADS, '')
+                self.replace_by_arg(target, '')
+                self.replace_by_arg(self.ENABLE_THREADS, '')
 
             # update the execute line
 
