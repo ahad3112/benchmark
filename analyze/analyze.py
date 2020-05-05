@@ -34,7 +34,7 @@ class Analyze:
                     else:
                         fileshere = os.listdir(dir_abspath)
                         for log in fileshere:
-                            if file.endswith(self.args.suffix):
+                            if log.endswith(self.args.suffix):
                                 self.__add_data(log=log)
                 break
 
