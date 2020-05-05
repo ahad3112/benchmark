@@ -22,7 +22,7 @@ class Analyze:
         for cluster in settings.CLUSTERS:
             if cluster.lower() in hostname:
                 Display.title(
-                    title='Submitting Job to {0}'.format(cluster)
+                    title='Analyzing for {0}'.format(cluster)
                 )
                 #  setting the cluster
                 self.cluster = cluster
@@ -33,7 +33,7 @@ class Analyze:
                         self.__collect_data_recursively(directory=dir_abspath)
                     else:
                         fileshere = os.listdir(dir_abspath)
-                        for file in fileshere:
+                        for log in fileshere:
                             if file.endswith(self.args.suffix):
                                 self.__add_data(log=log)
                 break
