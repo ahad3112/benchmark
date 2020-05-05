@@ -130,7 +130,13 @@ class ScriptTemplateCLI:
             help='Enables GPU acceleration',
             action='store_true',
             default=False
-        )
+        ),
+        Argument(
+            name=('--node', ),
+            help='Specify name of the node to be used.\
+            Available: [Tegner: Haswell, Beskow: None]',
+            type=str,
+        ),
     ]
 
     def __init__(self, *, subparsers):

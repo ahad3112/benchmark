@@ -10,7 +10,10 @@ from create.create import Create
 from submit.submit import Submit
 from inspect.cli import JobInspectCLI
 from inspect.inspect import Inspect
+from analyze.cli import PerformanceAnalyzeCLI
+from analyze.analyze import Analyze
 import centres.clusters as clusters
+
 
 
 def cli():
@@ -28,9 +31,8 @@ def cli():
     ScriptTemplateCLI(subparsers=subparsers)
     JobSubmitCLI(subparsers=subparsers)
     JobInspectCLI(subparsers=subparsers)
-    # add parser related to job submition
-    # add parser related to analyze the results
-    # add parser related to visualize the result
+    PerformanceAnalyzeCLI(subparsers=subparsers)
+
 
     args = parser.parse_args()
 
@@ -45,7 +47,8 @@ def action(*, args):
             Submit(args=args)
         elif sys.argv[1] == 'inspect':
             Inspect(args=args)
-
+        elif sys.argv[1] == 'analyze':
+            Analyze(args=args)
 
 if __name__ == '__main__':
     args = cli()

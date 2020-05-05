@@ -29,7 +29,8 @@ if __name__ != '__main__':
             '$memories$': 'replace_varargs',
             '$exe$': 'set_exe',
             '$simg$': 'set_simg',
-            '$threads$': 'set_threads'
+            '$threads$': 'set_threads',
+            '$node$': 'set_node'
         }
 
         working_directory_created = False
@@ -152,28 +153,6 @@ if __name__ != '__main__':
         def set_exe(self, target, value):
             self.replace_by_arg(target, ' '.join(value))
 
-        def set_simg(self, target, simg):
-            # simg will be empty string if not provided by the user
-            if simg:
-                try:
-                    self.replace_by_arg(
-                        target, self.params[target].format(simg)
-                    )
-                except KeyError:
-                    Display.error(
-                        what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
-                        info=' [ Not Supported ]',
-                        fill='-'
-                    )
-                    self.replace_by_arg(target, '')
-            else:
-                Display.error(
-                    what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
-                    info=' [ not provided ]',
-                    fill='-'
-                )
-                self.replace_by_arg(target, '')
-
         def replace_varargs(self, target, items):
             values = []
             default = settings.DEFAULT_ARGS.get(target, [])
@@ -270,13 +249,12 @@ if __name__ != '__main__':
         def set_threads(self, target, value):
             if self.args.threads:
                 self.replace_by_arg(target, self.params[target].format(self.OMP_NUM_THREADS, value))
-                # settion
+                # setting thread in executable
                 self.replace_by_arg(self.ENABLE_THREADS, self.params[self.ENABLE_THREADS].format(self.OMP_NUM_THREADS))
             else:
                 self.replace_by_arg(target, '')
+                # setting thread in executable
                 self.replace_by_arg(self.ENABLE_THREADS, '')
-
-            # update the execute line
 
         @classmethod
         def inspect(cls):
@@ -297,6 +275,8 @@ if __name__ != '__main__':
             )
 
     class Tegner(PDC):
+        __availables_nodes = ['Haswell']
+
         def __init__(self, *, args):
             self.extend_super()
             PDC.__init__(self, args=args)
@@ -306,8 +286,43 @@ if __name__ != '__main__':
             self.params.update(
                 {
                     '$simg$': 'singularity exec -B /cfs/klemming {0}',
+                    '$node$': '#SBATCH -C {node}'
                 }
             )
+
+        def set_node(self, target, node):
+            if node is None:
+                self.replace_by_arg(target, settings.DEFAULT_ARGS.get(target, ''))
+            else:
+                if node in self.__availables_nodes:
+                    self.replace_by_arg(target, self.params[target].format(node=node))
+                else:
+                    self.replace_by_arg(
+                        target,
+                        '# Provided node was not valid. Available are: {nodes}'.format(nodes=self.__availables_nodes)
+                    )
+
+        def set_simg(self, target, simg):
+            # simg will be empty string if not provided by the user
+            if simg:
+                try:
+                    self.replace_by_arg(
+                        target, self.params[target].format(simg)
+                    )
+                except KeyError:
+                    Display.error(
+                        what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
+                        info=' [ Not Supported ]',
+                        fill='-'
+                    )
+                    self.replace_by_arg(target, '')
+            else:
+                Display.error(
+                    what='Singularity Image for Cluster {0} '.format(self.__class__.__name__),
+                    info=' [ not provided ]',
+                    fill='-'
+                )
+                self.replace_by_arg(target, '')
 
     class Beskow(PDC):
         def __init__(self, *, args):

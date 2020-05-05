@@ -19,6 +19,9 @@
 #SBATCH -e $error_file$
 #SBATCH -o $output_file$
 
+# Specify specific node
+$node$
+
 # Generic resources
 $gres$
 
