@@ -21,7 +21,7 @@ class PerformanceAnalyzeCLI:
     args = {
         Argument(
             name=('-d', '--directories'),
-            help='Directories where to look for log files. Required at least on directory. \
+            help='Directories where to look for log files. Required at least one directory. \
             Directory can be provided using absolute path or relative to current working directory. \
             Default is current working directory. {0}'.format(settings.DEFAULT_WORKDIR),
             nargs='+',
@@ -29,7 +29,7 @@ class PerformanceAnalyzeCLI:
         ),
         Argument(
             name=('-r', '--recursive'),
-            help='Will look recursively for directories with the Cluster name and will analyze all log files.',
+            help='Will look for log file recursively',
             action='store_true',
             default=False
         ),

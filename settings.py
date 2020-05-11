@@ -9,7 +9,7 @@ HOME_DIRECTORY = os.path.abspath(sys.path[0])
 TEMPLATE_DIRECTORY = os.path.join(HOME_DIRECTORY, 'templates')
 
 # List of Cluster
-CLUSTERS = ['Tegner', 'Beskow', ]
+CLUSTERS = ['Tegner', 'Beskow', 'Muhammeds']
 
 
 # Default values

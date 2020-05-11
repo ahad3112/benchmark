@@ -15,7 +15,6 @@ from analyze.analyze import Analyze
 import centres.clusters as clusters
 
 
-
 def cli():
     parser = argparse.ArgumentParser(
         prog=os.path.splitext(os.path.split(sys.argv[0])[1])[0],
@@ -33,7 +32,6 @@ def cli():
     JobInspectCLI(subparsers=subparsers)
     PerformanceAnalyzeCLI(subparsers=subparsers)
 
-
     args = parser.parse_args()
 
     return args
@@ -49,6 +47,7 @@ def action(*, args):
             Inspect(args=args)
         elif sys.argv[1] == 'analyze':
             Analyze(args=args)
+
 
 if __name__ == '__main__':
     args = cli()
