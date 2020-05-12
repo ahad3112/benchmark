@@ -65,7 +65,7 @@ class Analyze:
         Plot Performance data using sns pointplot
         '''
         sns.set(style="darkgrid")
-        matplotlib.use('macosx')
+        matplotlib.use('TkAgg')
         data = self.__dataframe()
         g = sns.pointplot(kind="line",
                           x="#processors",
