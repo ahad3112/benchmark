@@ -26,12 +26,6 @@ class Submit:
 
     def __submit(self):
         hostname = os.popen('echo $HOSTNAME').read()
-        # print(hostname)
-        # here we will force hostname to have value tegner-login-1.pdc.kth.se
-        # hostname = 'tegner-login-1.pdc.kth.se'
-        #  Remove it later after testing...
-        # hostname = 'tegner'.lower()
-
         for cluster in settings.CLUSTERS:
             if cluster.lower() in hostname:
                 Display.title(

@@ -8,6 +8,7 @@ Usage:
 
 import pandas as pd
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -64,6 +65,7 @@ class Analyze:
         Plot Performance data using sns pointplot
         '''
         sns.set(style="darkgrid")
+        matplotlib.use('macosx')
         data = self.__dataframe()
         g = sns.pointplot(kind="line",
                           x="#processors",
