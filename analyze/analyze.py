@@ -85,7 +85,13 @@ class Analyze:
 
     def __generate_performance_data(self):
         hostname = os.popen('echo $HOSTNAME').read()
-        self.cluster = hostname if hostname in settings.CLUSTERS else 'UNKNOWN CLUSTER'
+        for cluster in settings.CLUSTERS:
+            if cluster.lower() in hostname:
+                self.cluster = cluster
+                break
+        else:
+            self.cluster = 'UNKNOWN CLUSTER'
+
         Display.title(
             title='Analyzing for {0}'.format(self.cluster)
         )
