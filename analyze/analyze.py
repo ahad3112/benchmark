@@ -65,7 +65,7 @@ class Analyze:
         Plot Performance data using sns pointplot
         '''
         sns.set(style="darkgrid")
-        matplotlib.use('TkAgg')
+        matplotlib.use('Qt5Cairo')
         data = self.__dataframe()
         g = sns.pointplot(kind="line",
                           x="#processors",
