@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import argparse
 import sys
 import os
@@ -8,8 +9,8 @@ from create.cli import ScriptTemplateCLI
 from submit.cli import JobSubmitCLI
 from create.create import Create
 from submit.submit import Submit
-from inspect.cli import JobInspectCLI
-from inspect.inspect import Inspect
+from inspects.cli import JobInspectCLI
+from inspects.inspect import Inspect
 from analyze.cli import PerformanceAnalyzeCLI
 from analyze.analyze import Analyze
 import centres.clusters as clusters
@@ -52,12 +53,3 @@ def action(*, args):
 if __name__ == '__main__':
     args = cli()
     action(args=args)
-    # print(args.name)
-
-    # print(args.min_ntasks_per_node)
-    # print(args.max_ntasks_per_node)
-    # print(args.gres)
-    # if args.env:
-    #     for env in args.env:
-    #         print(env.split('='))
-    # print(args.envs)

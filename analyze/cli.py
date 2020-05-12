@@ -41,8 +41,8 @@ class PerformanceAnalyzeCLI:
             default=settings.DEFAULT_ANALYZE_FILE_SUFFIX
         ),
         Argument(
-            name=('--raw',),
-            help='Display raw performance data',
+            name=('--view',),
+            help='Display performance data',
             action='store_true',
             default=False
         ),

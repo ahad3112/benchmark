@@ -13,7 +13,7 @@ CLUSTERS = ['Tegner', 'Beskow', 'Muhammeds']
 
 
 # Default values
-DEFAULT_ANALYZE_FILE_SUFFIX = '.log'
+DEFAULT_ANALYZE_FILE_SUFFIX = '*.log'
 DEFAULT_SCRIPT_SUFFIX = '.sh'
 DEFAULT_SCRIPT_NAME = 'run_test{0}'.format(DEFAULT_SCRIPT_SUFFIX)
 
