@@ -1,3 +1,10 @@
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
 
 import pandas as pd
 import numpy as np

@@ -1,3 +1,11 @@
+
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
 try:
     from core.arguments import Argument
 except ImportError:

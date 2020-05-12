@@ -1,3 +1,11 @@
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
+
 if __name__ != '__main__':
     '''
     I don't want this script to be run as the Top level script

@@ -1,3 +1,10 @@
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
 try:
     import centres.clusters as clusters
 except ModuleNotFoundError:

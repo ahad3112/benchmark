@@ -1,3 +1,10 @@
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
 import sys
 try:
     from core.arguments import Argument

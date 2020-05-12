@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+'''
+Author :
+    * Muhammed Ahad <ahad3112@yahoo.com, maaahad@gmail.com>
+Usage:
+    $ python3 benchmark.py -h/--help
+'''
+
 
 import argparse
 import sys
