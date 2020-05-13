@@ -26,24 +26,24 @@ class ScriptTemplateCLI:
     args = [
         Argument(
             name=('-n', '--name'),
-            help='Name of the job. Default is "{0}".'.format(settings.DEFAULT_JOB_NAME),
+            help='Name of the job ( default: "{0}").'.format(settings.DEFAULT_JOB_NAME),
             default=settings.DEFAULT_JOB_NAME
         ),
         Argument(
             name=('-c', '--clusters'),
-            help='Clusters name separated by white space',
+            help='Clusters name separated by white space.',
             choices=settings.CLUSTERS,
             nargs='+',
             required=True
         ),
         Argument(
             name=('-p', '--project'),
-            help='Project name to be charged for the allocation',
+            help='Project name to be charged for the allocation.',
             required=True
         ),
         Argument(
             name=('-wt', '--wall-time'),
-            help='Approximate time <hh:mm:ss> required for the job. Default is "{0}"'.format(settings.DEFAULT_WALL_TIME),
+            help=f'Approximate time <hh:mm:ss> required for the job. (default: "{settings.DEFAULT_WALL_TIME}")',
             default=settings.DEFAULT_WALL_TIME
         ),
         Argument(
@@ -72,7 +72,7 @@ class ScriptTemplateCLI:
         ),
         Argument(
             name=('-g', '--gres',),
-            help='Generic resources',
+            help=f'Generic resources Available are: {settings.GENERIC_RESOURCES}',
             nargs='+',
             default=settings.DEFAULT_ARGS['$gres$']
         ),
@@ -110,7 +110,7 @@ class ScriptTemplateCLI:
         ),
         Argument(
             name=('-exe', '--exe'),
-            help='exe to be run. To avoid some strange behaviour, Enclosed executable and param by single or doube quote. \
+            help='executable to be run. Enclosed executable and param by single or doube quote. \
             example: "gmx_mmpi mdrun -s topol.tpr"',
             nargs='+',
             required=True
@@ -183,3 +183,12 @@ class ScriptTemplateCLI:
         for group_name in self.mutually_exclusive_groups_name:
             self.mutually_exclusive_groups[group_name] = self.parser.add_mutually_exclusive_group()
             print('Group : {0} has been added to {1}'.format(group_name, self.__class__.__name__))
+
+    @staticmethod
+    def validate_args_value(*, args):
+        # validate walltime
+        if len(args.wall_time.split(':')) == 3:
+            if not all([tt.isnumeric() for tt in args.wall_time.split(':')]):
+                raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')
+        else:
+            raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')

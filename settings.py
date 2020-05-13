@@ -9,7 +9,13 @@ HOME_DIRECTORY = os.path.abspath(sys.path[0])
 TEMPLATE_DIRECTORY = os.path.join(HOME_DIRECTORY, 'templates')
 
 # List of Cluster
-CLUSTERS = ['Tegner', 'Beskow', 'Muhammeds']
+CLUSTERS = ['Tegner', 'Beskow']
+
+# Generic Resources
+GENERIC_RESOURCES = {
+    'Tegner': ['gpu:K420:1', 'gpu:K80:2'],
+    'Beskow': ['Not Avaible'],
+}
 
 
 # Default values

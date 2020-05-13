@@ -48,6 +48,8 @@ def cli():
 def action(*, args):
     if len(sys.argv) >= 2:
         if sys.argv[1] == 'create':
+            # need to check user provided input and give the user feedback if wring input provided
+            ScriptTemplateCLI.validate_args_value(args=args)
             Create(args=args)
         elif sys.argv[1] == 'submit':
             Submit(args=args)
