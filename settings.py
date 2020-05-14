@@ -6,6 +6,7 @@ ENCODING = 'utf-8'
 
 # Home Dorectory
 HOME_DIRECTORY = os.path.abspath(sys.path[0])
+DEFAULT_WORKDIR = os.getcwd()
 TEMPLATE_DIRECTORY = os.path.join(HOME_DIRECTORY, 'templates')
 
 # List of Cluster
@@ -14,7 +15,12 @@ CLUSTERS = ['Tegner', 'Beskow']
 # Generic Resources
 GENERIC_RESOURCES = {
     'Tegner': ['gpu:K420:1', 'gpu:K80:2'],
-    'Beskow': ['Not Avaible'],
+    'Beskow': [],
+}
+
+MEMORY_RESOURCES = {
+    'Tegner': ['1000000', '2000000'],
+    'Beskow': [],
 }
 
 
@@ -22,8 +28,6 @@ GENERIC_RESOURCES = {
 DEFAULT_ANALYZE_FILE_SUFFIX = '*.log'
 DEFAULT_SCRIPT_SUFFIX = '.sh'
 DEFAULT_SCRIPT_NAME = 'run_test{0}'.format(DEFAULT_SCRIPT_SUFFIX)
-
-DEFAULT_WORKDIR = os.getcwd()
 
 DEFAULT_JOB_NAME = 'jobs'
 DEFAULT_MIN_NODES = 1

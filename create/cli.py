@@ -24,127 +24,126 @@ class ScriptTemplateCLI:
     mutually_exclusive_groups = {}
 
     args = [
-        Argument(
-            name=('-n', '--name'),
-            help='Name of the job ( default: "{0}").'.format(settings.DEFAULT_JOB_NAME),
-            default=settings.DEFAULT_JOB_NAME
-        ),
-        Argument(
-            name=('-c', '--clusters'),
-            help='Clusters name separated by white space.',
-            choices=settings.CLUSTERS,
-            nargs='+',
-            required=True
-        ),
-        Argument(
-            name=('-p', '--project'),
-            help='Project name to be charged for the allocation.',
-            required=True
-        ),
-        Argument(
-            name=('-wt', '--wall-time'),
-            help=f'Approximate time <hh:mm:ss> required for the job. (default: "{settings.DEFAULT_WALL_TIME}")',
-            default=settings.DEFAULT_WALL_TIME
-        ),
-        Argument(
-            name=('--min-nodes',),
-            help='Min number of nodes. Default is "{0}"'.format(settings.DEFAULT_MIN_NODES),
-            type=int,
-            default=settings.DEFAULT_MIN_NODES
-        ),
-        Argument(
-            name=('--max-nodes',),
-            help='Max number of nodes. Default is "{0}"'.format(settings.DEFAULT_MAX_NODES),
-            type=int,
-            default=settings.DEFAULT_MAX_NODES
-        ),
-        Argument(
-            name=('--min-ntasks-per-node',),
-            help='Max number of nodes. Default is "{0}"'.format(settings.DEFAULT_MIN_NTASKS_PER_NODE),
-            type=int,
-            default=settings.DEFAULT_MIN_NTASKS_PER_NODE
-        ),
-        Argument(
-            name=('--max-ntasks-per-node',),
-            help='Max number of nodes. Default is "{0}"'.format(settings.DEFAULT_MAX_NTASKS_PER_NODE),
-            type=int,
-            default=settings.DEFAULT_MAX_NTASKS_PER_NODE
-        ),
-        Argument(
-            name=('-g', '--gres',),
-            help=f'Generic resources Available are: {settings.GENERIC_RESOURCES}',
-            nargs='+',
-            default=settings.DEFAULT_ARGS['$gres$']
-        ),
-        Argument(
-            name=('-mem', '--memories',),
-            help='Specify Memory resources',
-            nargs='+',
-            default=settings.DEFAULT_ARGS['$memories$']
-        ),
-        Argument(
-            name=('-o', '--output-file',),
-            help='Output file name. Default is "{0}"'.format(settings.DEFAULT_OUTPUT_FILE_NAME),
-            nargs='?',
-            default=settings.DEFAULT_OUTPUT_FILE_NAME,
-        ),
-        Argument(
-            name=('-e', '--error-file',),
-            help='Error file name. Default is "{0}"'.format(settings.DEFAULT_ERROR_FILE_NAME),
-            nargs='?',
-            default=settings.DEFAULT_ERROR_FILE_NAME,
-        ),
-        Argument(
-            name=('-mod', '--modules',),
-            help='List of modules to be loaded.',
-            nargs='+',
-            default=settings.DEFAULT_ARGS['$modules$']
-        ),
-        Argument(
-            name=('-env', '--envs',),
-            help='List of Environment variables as key=value pair within single or double quote. Do not put spaces before or after =.\
-            KEY/VALUE with space should be enclosed by single or double quote.',
-            nargs='+',
-            metavar='KEY=VALUE',
-            default=settings.DEFAULT_ARGS['$envs$']
-        ),
-        Argument(
-            name=('-exe', '--exe'),
-            help='executable to be run. Enclosed executable and param by single or doube quote. \
-            example: "gmx_mmpi mdrun -s topol.tpr"',
-            nargs='+',
-            required=True
-        ),
+        # Argument(
+        #     name=('-n', '--name'),
+        #     help=f'NAME of the JOB ( default : "{settings.DEFAULT_JOB_NAME}" ).',
+        #     default=settings.DEFAULT_JOB_NAME
+        # ),
+        # Argument(
+        #     name=('-c', '--cluster'),
+        #     help='CLUSTER name for which bechmark will be generated.',
+        #     choices=settings.CLUSTERS,
+        #     required=True
+        # ),
+        # Argument(
+        #     name=('-p', '--project'),
+        #     help='PROJECT name for the allocation.',
+        #     required=True
+        # ),
+        # Argument(
+        #     name=('-wt', '--wall-time'),
+        #     help=f'TIME (approximate) required for the JOB. Format => <hh:mm:ss> . ( default: {settings.DEFAULT_WALL_TIME} )',
+        #     default=settings.DEFAULT_WALL_TIME
+        # ),
+        # Argument(
+        #     name=('--min-nodes',),
+        #     help=f'MINIMUN number of NODES ( default : {settings.DEFAULT_MIN_NODES} ).',
+        #     type=int,
+        #     default=settings.DEFAULT_MIN_NODES
+        # ),
+        # Argument(
+        #     name=('--max-nodes',),
+        #     help=f'MAXIMUM number of NODES ( default : {settings.DEFAULT_MAX_NODES} )',
+        #     type=int,
+        #     default=settings.DEFAULT_MAX_NODES
+        # ),
+        # Argument(
+        #     name=('--min-ntasks-per-node',),
+        #     help=f'MINIMUN number of TASK per NODE ( default : {settings.DEFAULT_MIN_NTASKS_PER_NODE} ).',
+        #     type=int,
+        #     default=settings.DEFAULT_MIN_NTASKS_PER_NODE
+        # ),
+        # Argument(
+        #     name=('--max-ntasks-per-node',),
+        #     help=f'MAXIMUM number of TASKS per NODE ( default : {settings.DEFAULT_MAX_NTASKS_PER_NODE} ).',
+        #     type=int,
+        #     default=settings.DEFAULT_MAX_NTASKS_PER_NODE
+        # ),
+        # Argument(
+        #     name=('-g', '--gres',),
+        #     help=f'GENERIC resources ( AVAILABLE: {settings.GENERIC_RESOURCES} ).',
+        #     nargs='+',
+        #     default=settings.DEFAULT_ARGS['$gres$']
+        # ),
+        # Argument(
+        #     name=('-mem', '--memories',),
+        #     help=f'MEMORY resources ( AVAILABLE: {settings.MEMORY_RESOURCES} ).',
+        #     nargs='+',
+        #     default=settings.DEFAULT_ARGS['$memories$']
+        # ),
+        # Argument(
+        #     name=('-o', '--output-file',),
+        #     help=f'OUTPUT file name ( default : {settings.DEFAULT_OUTPUT_FILE_NAME} ).',
+        #     nargs='?',
+        #     default=settings.DEFAULT_OUTPUT_FILE_NAME,
+        # ),
+        # Argument(
+        #     name=('-e', '--error-file',),
+        #     help=f'ERROR file name ( default : {settings.DEFAULT_ERROR_FILE_NAME} ).',
+        #     nargs='?',
+        #     default=settings.DEFAULT_ERROR_FILE_NAME,
+        # ),
+        # Argument(
+        #     name=('-mod', '--modules',),
+        #     help='MODULES (space separated) to be loaded.',
+        #     nargs='+',
+        #     default=settings.DEFAULT_ARGS['$modules$']
+        # ),
+        # Argument(
+        #     name=('-env', '--envs',),
+        #     help='ENV variables as key=value pair within single or double quote. Do not put spaces before or after =.\
+        #     KEY/VALUE with space should be enclosed by single or double quote ( EXAMPLE : PATH=/usr/local/bin:$PATH LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH ).',
+        #     nargs='+',
+        #     metavar='KEY=VALUE',
+        #     default=settings.DEFAULT_ARGS['$envs$']
+        # ),
+        # Argument(
+        #     name=('-exe', '--exe'),
+        #     help='EXECUTABLE to be run. ENCLOSED executable and params within single(\'\') or doube quotes(\"\"). \
+        #     ( EXAMPLE: "gmx_mpi mdrun -s topol.tpr )"',
+        #     nargs='+',
+        #     required=True
+        # ),
         Argument(
             name=('-wd', '--workdir'),
-            help='Default workdir is the directory from where you execute the tool. \
-            If absolute path is not used for any file, it will be considered to be relative to this directory.\
-            For this run working directory is: {0}'.format(settings.DEFAULT_WORKDIR),
+            help=f'WORKDIR, created benchmark will be stored here. \
+            If absolute path is not used, current working directory will be prepended. \
+            ( default : {settings.DEFAULT_WORKDIR} )',
             default=settings.DEFAULT_WORKDIR
         ),
-        Argument(
-            name=('-s', '--simg'),
-            help='Absolute path of the singularity image.',
-            type=str,
-            default=settings.DEFAULT_ARGS['$simg$']
-        ),
-        Argument(
-            name=('-th', '--threads'),
-            help='No of threads per process.',
-            type=str,
-        ),
-        Argument(
-            name=('-gpu', '--gpu'),
-            help='Enables GPU acceleration',
-            action='store_true',
-            default=False
-        ),
-        Argument(
-            name=('--node', ),
-            help='Specify name of the node to be used.\
-            Available: [Tegner: Haswell, Beskow: None]',
-            type=str,
-        ),
+        # Argument(
+        #     name=('-s', '--simg'),
+        #     help='Absolute path of the singularity image.',
+        #     type=str,
+        #     default=settings.DEFAULT_ARGS['$simg$']
+        # ),
+        # Argument(
+        #     name=('-th', '--threads'),
+        #     help='No of threads per process.',
+        #     type=str,
+        # ),
+        # Argument(
+        #     name=('-gpu', '--gpu'),
+        #     help='Enables GPU acceleration',
+        #     action='store_true',
+        #     default=False
+        # ),
+        # Argument(
+        #     name=('--node', ),
+        #     help='Specify name of the node to be used.\
+        #     Available: [Tegner: Haswell, Beskow: None]',
+        #     type=str,
+        # ),
     ]
 
     def __init__(self, *, subparsers):
@@ -186,9 +185,26 @@ class ScriptTemplateCLI:
 
     @staticmethod
     def validate_args_value(*, args):
-        # validate walltime
-        if len(args.wall_time.split(':')) == 3:
-            if not all([tt.isnumeric() for tt in args.wall_time.split(':')]):
-                raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')
-        else:
-            raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')
+
+        # # validate walltime
+        # if len(args.wall_time.split(':')) == 3:
+        #     if not all([tt.isnumeric() for tt in args.wall_time.split(':')]):
+        #         raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')
+        # else:
+        #     raise RuntimeError('Wrong format for -wt/--walltime. Right format is hh:mm:ss')
+
+        # Generic resources
+        # for gres in args.gres:
+        #     if gres not in settings.DEFAULT_ARGS['$gres$']:
+        #         if gres not in settings.GENERIC_RESOURCES.get(args.cluster, []):
+        #             raise RuntimeError(f'{gres} not GENERIC resoures for CLUSTER {args.cluster} : (AVAILABLE: {settings.GENERIC_RESOURCES[args.cluster]}).')
+
+        # # memory resources
+        # for memory in args.memories:
+        #     if memory not in settings.DEFAULT_ARGS['$memories$']:
+        #         if memory not in settings.MEMORY_RESOURCES.get(args.cluster, []):
+        #             raise RuntimeError(f'{memory} not MEMORY resoures for CLUSTER {args.cluster} : (AVAILABLE: {settings.MEMORY_RESOURCES[args.cluster]}).')
+
+        # TODO: modules
+
+        pass
