@@ -29,9 +29,9 @@ def cli():
     )
 
     subparsers = parser.add_subparsers(
-        title='Available Modules',
-        description='Generate Job Script, submit jobss to the Queue System, \
-        analyze the results',
+        title='AVAILABLE SUB-MODULES',
+        description='CREATE JOB SCRIPT, SUBMIT JOBS to the QUEUE SYSTEM, ' +
+        'INSPECT submitted JOBS and ANALYZE the PERFORMANCE results.'
     )
 
     # add parser related to scripts

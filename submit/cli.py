@@ -28,23 +28,22 @@ class JobSubmitCLI:
     args = {
         Argument(
             name=('-d', '--directories'),
-            help='Directories where to look for job script. Required at least on directory. \
-            Directory can be provided using absolute path or relative to current working directory. \
-            Default is current working directory. {0}'.format(settings.DEFAULT_WORKDIR),
+            help='DIRECTORIES where to look for job script to submit to the QUEUE system. ' +
+            'DIRECTORIES can be provided using ABSOLUTE PATH or RELATIVE to the CURRENT WORKING DIRECTORY. ' +
+            f'(default : [\'{settings.DEFAULT_WORKDIR}\',] ).',
             nargs='+',
             default=[settings.DEFAULT_WORKDIR, ]
         ),
         Argument(
             name=('-r', '--recursive'),
-            help='Will look recursively for directories with the Cluster name and will submit all job.',
+            help=f'RECURSIVE looking for JOB SCRIPT within the DIRECTORY named as the CLUSTER name ' +
+            ' starting at provided value by option -d/--directories.',
             action='store_true',
             default=False
         ),
         Argument(
             name=('-s', '--suffix'),
-            help='File having suffix will be considered as job script. Default is {0}'.format(
-                settings.DEFAULT_SCRIPT_SUFFIX
-            ),
+            help=f'SUFFIX to be considered for job script. ( default : {settings.DEFAULT_SCRIPT_SUFFIX} ).',
             default=settings.DEFAULT_SCRIPT_SUFFIX
         ),
         Argument(
@@ -59,7 +58,7 @@ class JobSubmitCLI:
     def __init__(self, *, subparsers):
         self.parser = subparsers.add_parser(
             'submit',
-            help='Submit job script to the queue system'
+            help='SUBMIT JOB SCRIPT to the QUEUE SYSTEM of the CLUSTER where the SCRIPT is being RUN.'
         )
 
         self.__add_mutually_exclusive_groups()

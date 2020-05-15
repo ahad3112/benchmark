@@ -58,10 +58,10 @@ class Analyze:
         '''
         This method generate csv file
         '''
-        self.__dataframe().to_csv('benchmark.csv')
-        print('Performance data is stored in {file}'.format(file=os.path.join(
-            os.getcwd(), 'benchmark.csv')
-        ))
+        file_name = os.path.abspath(self.args.file) if self.args.file else os.path.join(os.getcwd(), f'{self.cluster}.csv')
+        self.__dataframe().to_csv(file_name)
+
+        print(f'Performance data is stored in {file_name}')
 
     def plot(self):
         '''
@@ -94,7 +94,7 @@ class Analyze:
                 self.cluster = cluster
                 break
         else:
-            self.cluster = 'UNKNOWN CLUSTER'
+            self.cluster = 'UNKNOWN-CLUSTER'
 
         Display.title(
             title='Analyzing for {0}'.format(self.cluster)

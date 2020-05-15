@@ -28,49 +28,54 @@ class PerformanceAnalyzeCLI:
     args = {
         Argument(
             name=('-d', '--directories'),
-            help='Directories where to look for log files. Required at least one directory. \
-            Directory can be provided using absolute path or relative to current working directory. \
-            Default is current working directory. {0}'.format(settings.DEFAULT_WORKDIR),
+            help=f'DIRECTORIES where to look for LOG FILES. ' +
+            'DIRECTORIES can be provided using ABSOLUTE PATH or RELATIVE to the CURRENT WORKING DIRECTORY. ' +
+            '( default : {settings.DEFAULT_WORKDIR} ).',
             nargs='+',
             default=[settings.DEFAULT_WORKDIR, ]
         ),
         Argument(
             name=('-r', '--recursive'),
-            help='Will look for log file recursively',
+            help=f'RECURSIVE looking for LOG FILES ' +
+            'within the DIRECTORY/DIRECTORIES provided for option -d/--directories. ',
             action='store_true',
             default=False
         ),
         Argument(
             name=('-s', '--suffix'),
-            help='File having suffix will be considered as log file to be analyzed. Default is {0}'.format(
-                settings.DEFAULT_ANALYZE_FILE_SUFFIX
-            ),
+            help=f'SUFFIX to be considered as LOG FILE to be ANALYZED. ( default : {settings.DEFAULT_ANALYZE_FILE_SUFFIX} ).',
             default=settings.DEFAULT_ANALYZE_FILE_SUFFIX
         ),
         Argument(
             name=('--view',),
-            help='Display performance data',
+            help='VIEW performance data.',
             action='store_true',
             default=False
         ),
         Argument(
             name=('--plot',),
-            help='Plot performance data',
+            help='PLOT performance data.',
             action='store_true',
             default=False
         ),
         Argument(
             name=('--csv',),
-            help='Write performance data to csv file',
+            help='WRITE performance data to CSV file.',
             action='store_true',
             default=False
+        ),
+        Argument(
+            name=('-f', '--file',),
+            help='FILE name where CSV data will be written. ' +
+            'If ABSOLUTE PATH is not given, CURRENT WORKING DIRECTORY will be APPENDED.',
+            type=str,
         ),
     }
 
     def __init__(self, *, subparsers):
         self.parser = subparsers.add_parser(
             'analyze',
-            help='Analyze the performance'
+            help='ANALYZE the performance of the FINISHED JOBS for the CLUSTER where the SCRIPT is being RUN.'
         )
 
         self.__add_mutually_exclusive_groups()

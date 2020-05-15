@@ -152,7 +152,7 @@ class ScriptTemplateCLI:
     def __init__(self, *, subparsers):
         self.parser = subparsers.add_parser(
             'create',
-            help='Create job scripts'
+            help='CREATE JOB SCRIPTS for the specified CLUSTER.'
         )
 
         self.__add_mutually_exclusive_groups()

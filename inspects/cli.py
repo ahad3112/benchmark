@@ -28,7 +28,7 @@ class JobInspectCLI:
     args = {
         Argument(
             name=('-s', '--status'),
-            help='Show the status of the submitted job to the queue system. Default is "True"',
+            help='STATUS of the SUBMITTED JOBS to the QUEUE SYSTEM.',
             action='store_true',
             default=True
         ),
@@ -44,7 +44,7 @@ class JobInspectCLI:
     def __init__(self, *, subparsers):
         self.parser = subparsers.add_parser(
             'inspect',
-            help='Inspect job submitted to the queue system'
+            help='INSPECT JOBS submitted to the QUEUE SYSTEM of the CLUSTER where the SCRIPT is being RUN'
         )
 
         self.__add_mutually_exclusive_groups()
