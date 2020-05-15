@@ -8,7 +8,7 @@ Usage:
 
 if __name__ != '__main__':
     '''
-    I don't want this script to be run as the Top level script
+    We want this script to be run as the Top level script
     Should add to other module
     '''
     import os
