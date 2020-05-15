@@ -19,5 +19,4 @@ class Create:
         self.__create_benchmark()
 
     def __create_benchmark(self):
-        for cluster in self.args.clusters:
-            getattr(clusters, cluster)(args=self.args)
+        getattr(clusters, self.args.cluster)(args=self.args)

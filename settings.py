@@ -23,13 +23,18 @@ MEMORY_RESOURCES = {
     'Beskow': [],
 }
 
+NODES = {
+    'Tegner': ['Haswell', ],
+    'Beskow': [],
+}
+
 
 # Default values
 DEFAULT_ANALYZE_FILE_SUFFIX = '*.log'
 DEFAULT_SCRIPT_SUFFIX = '.sh'
 DEFAULT_SCRIPT_NAME = 'run_test{0}'.format(DEFAULT_SCRIPT_SUFFIX)
 
-DEFAULT_JOB_NAME = 'jobs'
+DEFAULT_JOB_NAME = 'job'
 DEFAULT_MIN_NODES = 1
 DEFAULT_MAX_NODES = 1
 DEFAULT_MIN_NTASKS_PER_NODE = 1
