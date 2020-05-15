@@ -1,4 +1,5 @@
-```Benchmarking Tool```
+## Benchmarking Tool : `benchmark`
+
 Before using this, one has to create appropriate conda environment and activate the environment. Environment
 required for this tool can be created using the script: `create_environment.py`
 
