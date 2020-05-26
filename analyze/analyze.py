@@ -72,9 +72,13 @@ class Analyze:
         g = sns.pointplot(kind="line",
                           x="#processors",
                           y="ns/day",
-                          # hue="#processors",
-                          # style="#processors",
-                          data=data)
+                          hue="container",
+                          # style="container",
+                          markers=['o'],
+                          linestyles=['--'],
+                          data=data,
+                          # palette="Set2",
+                          )
         plt.show()
 
     def __dataframe(self):
@@ -82,7 +86,8 @@ class Analyze:
             '#processors': [p_data.np for p_data in self._performance_data],
             '#ompthreads': [p_data.ompthreads for p_data in self._performance_data],
             'ns/day': [p_data.nspday for p_data in self._performance_data],
-            'hr/ns': [p_data.hrpns for p_data in self._performance_data]
+            'hr/ns': [p_data.hrpns for p_data in self._performance_data],
+            'container': ['yes'] * len(self._performance_data)
         })
 
         return df
