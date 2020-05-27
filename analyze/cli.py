@@ -27,10 +27,11 @@ class PerformanceAnalyzeCLI:
 
     args = {
         Argument(
-            name=('-d', '--directories'),
-            help=f'DIRECTORIES where to look for LOG FILES. ' +
+            name=('-dt', '--dir-tag'),
+            help=f'directory: where to look for LOG FILES. ' +
             'DIRECTORIES can be provided using ABSOLUTE PATH or RELATIVE to the CURRENT WORKING DIRECTORY. ' +
-            '( default : {settings.DEFAULT_WORKDIR} ).',
+            '( default : {settings.DEFAULT_WORKDIR} ). Tag: will be used as hue during plot.',
+            metavar='directory:tag',
             nargs='+',
             default=[settings.DEFAULT_WORKDIR, ]
         ),

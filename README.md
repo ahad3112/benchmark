@@ -73,8 +73,8 @@ More information for each option for this submodule can found by running `benchm
 This submodule analyze the performance of all finished jobs in given directory/directories. analyze module includes options for viewing, plotting and saving the performance data to `csv` file.
 
     usage: benchmark.py analyze [-h] [--csv] [-f FILE]
-                             [-d DIRECTORIES [DIRECTORIES ...]] [-r] [-s SUFFIX]
-                             [--view] [--plot]
+                         [-dt directory:tag [directory:tag ...]] [-r]
+                         [-s SUFFIX] [--view] [--plot]
 
 More information for each option for this submodule can found by running `benchmark.py analyze -h/--help`
 
