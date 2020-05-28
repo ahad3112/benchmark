@@ -286,14 +286,16 @@ if __name__ != '__main__':
         __availables_nodes = ['Haswell']
 
         def __init__(self, *, args):
-            self.extend_super()
+            self.extend_super(args=args)
             PDC.__init__(self, args=args)
 
-        def extend_super(self):
+        def extend_super(self, *, args):
             self.params = PDC.params.copy()
+            sing_exec = 'singularity exec --nv -B /cfs/klemming {0}' if args.gpu else 'singularity exec -B /cfs/klemming {0}'
+
             self.params.update(
                 {
-                    '$simg$': 'singularity exec -B /cfs/klemming {0}',
+                    '$simg$': sing_exec,
                     '$node$': '#SBATCH -C {node}'
                 }
             )

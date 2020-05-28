@@ -103,7 +103,7 @@ class ScriptTemplateCLI:
         ),
         Argument(
             name=('-env', '--envs',),
-            help='ENV variables as key=value pair within SINGLE(\'\') or DOUBLE QUOTES(\"\"). '  +
+            help='ENV variables as key=value pair within SINGLE(\'\') or DOUBLE QUOTES(\"\"). ' +
             'Do not put spaces before or after = .' +
             '( EXAMPLE : \'PATH=/usr/local/bin:$PATH\' \"LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH\" ).',
             nargs='+',
@@ -136,7 +136,7 @@ class ScriptTemplateCLI:
             type=str,
         ),
         Argument(
-            name=('-gpu', '--gpu'),
+            name=('--gpu',),
             help='ENABLE GPU acceleration.',
             action='store_true',
             default=False
