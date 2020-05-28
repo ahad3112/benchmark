@@ -14,7 +14,7 @@ CLUSTERS = ['Tegner', 'Beskow']
 
 # Generic Resources
 GENERIC_RESOURCES = {
-    'Tegner': ['gpu:K420:1', 'gpu:K80:2'],
+    'Tegner': ['gpu:K420:1', 'gpu:K80:1', 'gpu:K80:2'],
     'Beskow': [],
 }
 
