@@ -35,6 +35,12 @@ class PerformanceAnalyzeCLI:
             nargs='+',
             default=[settings.DEFAULT_WORKDIR, ]
         ),
+
+        Argument(
+            name=('--gdevice',),
+            help='GPU device used for the run that used GPU acceleration.',
+            default='GPI info not provided'
+        ),
         Argument(
             name=('-r', '--recursive'),
             help=f'RECURSIVE looking for LOG FILES ' +
@@ -67,7 +73,7 @@ class PerformanceAnalyzeCLI:
         ),
         Argument(
             name=('-f', '--file',),
-            help='FILE name where CSV data will be written. ' +
+            help='FILE name where CSV data/Plot  will be stored. ' +
             'If ABSOLUTE PATH is not given, CURRENT WORKING DIRECTORY will be APPENDED.',
             type=str,
         ),
